@@ -3,6 +3,7 @@ var router_1 = require('@angular/router');
 var home_component_1 = require('../comps/home.component');
 var login_form_component_1 = require('../comps/login-form.component');
 var logout_component_1 = require('../comps/logout.component');
+var dashboard_component_1 = require('../comps/dashboard.component');
 var appRoutes = [
     {
         path: 'home',
@@ -15,6 +16,10 @@ var appRoutes = [
     {
         path: 'logout',
         component: logout_component_1.LogoutComponent
+    },
+    {
+        path: 'admin/dashboard',
+        component: dashboard_component_1.DashboardComponent
     },
     {
         path: '',

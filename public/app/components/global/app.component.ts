@@ -2,11 +2,15 @@ import { OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, Input } from '@angular/core';
 
-import { UserService } from '../services/user.service';
+//import { UserService } from '../services/user.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { Logger } from '../services/logger.service';
 import { NotificationService, NotificationMessage } from '../services/notification.service';
 
 import './rxjs-operators';
+
+//To avoid 'name not found' warning from TypeScript, define a variable of type any.
+declare var componentHandler: any;
 
 @Component({
     selector: 'app',
@@ -17,7 +21,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
     public authenticated = false;
     
-    constructor(private userService: UserService, private logger: Logger, private router: Router,
+    constructor(private authService: AuthenticationService, private logger: Logger, private router: Router,
     private notificationService: NotificationService){
         this.notificationService.notify$.subscribe(noty => {
             switch(noty.notyType){
@@ -34,7 +38,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     title = 'SPRT';
     
     onLogout(){
-        this.userService.logout().then(res => {
+        this.authService.logout().then(res => {
             window.location.assign('/');
             //this.router.navigate(['/home']);
             //this.notificationService.sendNotification(new NotificationMessage("logout", "", null));
@@ -45,7 +49,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     
     ngOnInit(){
         try{
-            this.userService.getToken().then((response) => {
+            this.authService.getToken().then((response) => {
                 if(response !== "undefined" && response !== ''){
                     this.authenticated = true;
                 }

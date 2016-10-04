@@ -8,6 +8,9 @@ import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
 import { NotificationService, NotificationMessage } from '../services/notification.service';
 
+//To avoid 'name not found' warning from TypeScript, define a variable of type any.
+declare var componentHandler: any;
+
 @Component({
     templateUrl: '/views/login.html'
 })
