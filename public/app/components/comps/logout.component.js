@@ -9,33 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
-var HomeComponent = (function () {
-    function HomeComponent(userService, logger) {
+var LogoutComponent = (function () {
+    function LogoutComponent(userService, logger, router) {
         this.userService = userService;
         this.logger = logger;
-        this.title = 'MEA2N';
+        this.router = router;
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        try {
-            this.userService.getToken().then(function (response) {
-                if (response !== "undefined" && response !== '') {
-                }
-            }).catch(function (error) {
-            });
-        }
-        catch (ex) {
-            this.logger.logError(ex);
-        }
+    LogoutComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.userService.logout().then(function (res) {
+            _this.router.navigate(['/home']);
+        }).catch(function (err) {
+            _this.logger.logError(err);
+        });
     };
-    HomeComponent = __decorate([
+    LogoutComponent = __decorate([
         core_1.Component({
-            templateUrl: '/views/home.html'
+            template: "<span></span>"
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger])
-    ], HomeComponent);
-    return HomeComponent;
+        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.Router])
+    ], LogoutComponent);
+    return LogoutComponent;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.LogoutComponent = LogoutComponent;
+//# sourceMappingURL=logout.component.js.map

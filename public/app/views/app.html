@@ -1,5 +1,5 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <div class="app-header mdl-layout__header mdl-layout__header--waterfall">
+    <div class="app-header mdl-layout__header">
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title app-title">
                 <a href="/">SPRT</a>
@@ -15,11 +15,12 @@
             <button class="app-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
             <i class="material-icons">more_vert</i>
             </button>
-            <ul class="app-menu mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <li class="mdl-menu__item">About</li>
-                <li class="mdl-menu__item">Contact</li>
-                <li class="mdl-menu__item">Login</li>
-            </ul>
+            <nav class="app-menu mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+                <a class="mdl-menu__item">About</a>
+                <a class="mdl-menu__item">Contact</a>
+                <a *ngIf="!authenticated" class="mdl-menu__item" routerLink="/login">Login</a>
+                <a class="mdl-menu__item" href="#" (click)="onLogout()">Logout</a>
+            </nav>
         </div>
     </div> <!--mdl-layout__header ends-->
     <div class="mdl-layout__content">
