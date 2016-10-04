@@ -19,12 +19,16 @@
                 <a class="mdl-menu__item">About</a>
                 <a class="mdl-menu__item">Contact</a>
                 <a *ngIf="!authenticated" class="mdl-menu__item" routerLink="/login">Login</a>
-                <a class="mdl-menu__item" href="#" (click)="onLogout()">Logout</a>
+                <a *ngIf="authenticated" class="mdl-menu__item" href="#" (click)="onLogout()">Logout</a>
             </nav>
         </div>
     </div> <!--mdl-layout__header ends-->
     <div class="mdl-layout__content">
         <a name="top"></a>
         <router-outlet></router-outlet>
+    </div>
+    <div id="app-snackbar" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
     </div>
 </div>

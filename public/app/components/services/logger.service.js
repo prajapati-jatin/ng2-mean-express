@@ -21,6 +21,12 @@ var Logger = (function () {
         this.logs.push(error);
         console.error(error);
     };
+    Logger.prototype.showNotification = function (error, type) {
+        if (type === '' || type === undefined) {
+            type = 'error';
+        }
+        showNotification(error, type);
+    };
     Logger = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

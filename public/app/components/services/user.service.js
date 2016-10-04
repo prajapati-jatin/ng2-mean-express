@@ -18,8 +18,6 @@ var UserService = (function () {
     }
     ;
     UserService.prototype.authenticate = function (username, password) {
-        var _this = this;
-        this.logger.log('Authenticting the user...');
         var authUrl = '/api/users/authenticate';
         var body = JSON.stringify({ username: username, password: password });
         return this.http.post(authUrl, body, this.getRequestOptions())
@@ -27,10 +25,12 @@ var UserService = (function () {
             .then(function (response) {
             var body = response.json();
             return body || {};
-        })
-            .catch(function (error) {
-            _this.logError(error);
         });
+        // .catch((error) => {
+        //     this.logger.log('Auth error');
+        //     this.logError(error);
+        //     throw new Error("Invalid credentials");
+        // });
     };
     UserService.prototype.logout = function () {
         var _this = this;

@@ -12,20 +12,34 @@ var router_1 = require('@angular/router');
 var core_1 = require('@angular/core');
 var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
+var notification_service_1 = require('../services/notification.service');
 require('./rxjs-operators');
 var AppComponent = (function () {
-    function AppComponent(userService, logger, router) {
+    function AppComponent(userService, logger, router, notificationService) {
+        var _this = this;
         this.userService = userService;
         this.logger = logger;
         this.router = router;
+        this.notificationService = notificationService;
         this.authenticated = false;
         this.title = 'SPRT';
-        this.authenticated = false;
+        this.notificationService.notify$.subscribe(function (noty) {
+            switch (noty.notyType) {
+                case 'authenticated':
+                    _this.authenticated = true;
+                    break;
+                case 'logout':
+                    _this.authenticated = false;
+                    break;
+            }
+        });
     }
     AppComponent.prototype.onLogout = function () {
         var _this = this;
         this.userService.logout().then(function (res) {
-            _this.router.navigate(['/home']);
+            window.location.assign('/');
+            //this.router.navigate(['/home']);
+            //this.notificationService.sendNotification(new NotificationMessage("logout", "", null));
         }).catch(function (err) {
             _this.logger.logError(err);
         });
@@ -69,9 +83,10 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app',
-            templateUrl: '/views/app.html'
+            templateUrl: '/views/app.html',
+            providers: [notification_service_1.NotificationService]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.Router])
+        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.Router, notification_service_1.NotificationService])
     ], AppComponent);
     return AppComponent;
 }());

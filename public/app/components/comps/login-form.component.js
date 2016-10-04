@@ -13,12 +13,14 @@ var router_1 = require('@angular/router');
 var login_1 = require('../models/login');
 var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
+var notification_service_1 = require('../services/notification.service');
 var LoginComponent = (function () {
-    function LoginComponent(userService, logger, route, router) {
+    function LoginComponent(userService, logger, route, router, notificationService) {
         this.userService = userService;
         this.logger = logger;
         this.route = route;
         this.router = router;
+        this.notificationService = notificationService;
         this.isauthenticated = false;
         this.title = 'Login';
         this.model = new login_1.Login('jatin.prajapati@outlook.com', '');
@@ -29,12 +31,15 @@ var LoginComponent = (function () {
         try {
             this.submitted = true;
             this.userService.authenticate(this.model.username, this.model.password).then(function (response) {
+                console.log('In auth success');
                 window.token = response;
-                //console.log(window.token);
                 _this.isauthenticated = true;
+                _this.notificationService.sendNotification(new notification_service_1.NotificationMessage("authenticated", "", null));
                 _this.router.navigate(['/home']);
             }).catch(function (error) {
-                _this.logger.log(error);
+                var errorMessage = error.text();
+                _this.logger.showNotification(errorMessage, 'error');
+                _this.logger.log(error.text());
             });
         }
         catch (ex) {
@@ -80,7 +85,7 @@ var LoginComponent = (function () {
         core_1.Component({
             templateUrl: '/views/login.html'
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.ActivatedRoute, router_1.Router, notification_service_1.NotificationService])
     ], LoginComponent);
     return LoginComponent;
 }());

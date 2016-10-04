@@ -4,26 +4,40 @@ import { Component, Input } from '@angular/core';
 
 import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
+import { NotificationService, NotificationMessage } from '../services/notification.service';
 
 import './rxjs-operators';
 
 @Component({
     selector: 'app',
-    templateUrl: '/views/app.html'
+    templateUrl: '/views/app.html',
+    providers: [ NotificationService ]
 })
 export class AppComponent implements AfterViewInit, OnInit {
-    
-    constructor(private userService: UserService, private logger: Logger, private router: Router){}
-    
+
     public authenticated = false;
+    
+    constructor(private userService: UserService, private logger: Logger, private router: Router,
+    private notificationService: NotificationService){
+        this.notificationService.notify$.subscribe(noty => {
+            switch(noty.notyType){
+                case 'authenticated':
+                    this.authenticated = true;
+                break;
+                case 'logout':
+                    this.authenticated = false;
+                break;
+            }
+        });
+    }    
     
     title = 'SPRT';
     
-    authenticated = false;
-    
     onLogout(){
         this.userService.logout().then(res => {
-            this.router.navigate(['/home']);
+            window.location.assign('/');
+            //this.router.navigate(['/home']);
+            //this.notificationService.sendNotification(new NotificationMessage("logout", "", null));
         }).catch(err => {
             this.logger.logError(err);
         });

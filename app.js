@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret: config.secret, resave: false, saveUninitialized: true}));
-app.use('/api', expressJwt({secret: config.secret}).unless({path: ['/api/users/authenticate', '/api/users/register']}));
+app.use('/api', expressJwt({secret: config.secret}).unless({path: ['/api/users/authenticate', '/api/users/register', '/api/users/createadmin']}));
 // app.use(function(req, res, next){
 //   var token = req.headers.authorization;
 //   console.log('token: ' + token);

@@ -6,6 +6,7 @@ import { AppComponent } from '../global/app.component';
 import { Login } from '../models/login';
 import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
+import { NotificationService, NotificationMessage } from '../services/notification.service';
 
 @Component({
     templateUrl: '/views/login.html'
@@ -13,12 +14,16 @@ import { Logger } from '../services/logger.service';
 
 export class LoginComponent implements AfterViewInit, OnInit{
     
-    constructor(private userService: UserService, private logger: Logger, private route: ActivatedRoute, private router: Router) { }
+    constructor(private userService: UserService, private logger: Logger, 
+                private route: ActivatedRoute, private router: Router,
+                private notificationService: NotificationService) { 
+
+                }
     
     @Input() isauthenticated = false;
     title = 'Login';
     
-    model = new Login('jatin.prajapati@outlook.com', '');
+    model = new Login('jatin.prajapati@outlook.com', '');    
     
     submitted = false;
     
@@ -26,12 +31,15 @@ export class LoginComponent implements AfterViewInit, OnInit{
         try{
             this.submitted = true;
             this.userService.authenticate(this.model.username, this.model.password).then((response) => {
-                window.token = response;
-                //console.log(window.token);
+                console.log('In auth success');
+                window.token = response;                
                 this.isauthenticated = true;
+                this.notificationService.sendNotification(new NotificationMessage("authenticated", "", null));
                 this.router.navigate(['/home']);
             }).catch((error) => {
-                this.logger.log(error);
+                let errorMessage = error.text();
+                this.logger.showNotification(errorMessage, 'error');
+                this.logger.log(error.text());
             });
         }
         catch(ex){

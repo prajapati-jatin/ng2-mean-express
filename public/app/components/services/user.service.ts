@@ -8,8 +8,7 @@ export class UserService{
     
     constructor(private logger: Logger, private http: Http) { };
     
-    authenticate(username, password): Promise<string> {
-        this.logger.log('Authenticting the user...');
+    authenticate(username, password): Promise<string> {        
         let authUrl = '/api/users/authenticate';
         let body = JSON.stringify({username: username, password: password});
         return this.http.post(authUrl, body, this.getRequestOptions())
@@ -17,10 +16,12 @@ export class UserService{
                 .then((response) => {
                     let body = response.json();
                     return body || {};
-                })
-                .catch((error) => {
-                    this.logError(error);
                 });
+                // .catch((error) => {
+                //     this.logger.log('Auth error');
+                //     this.logError(error);
+                //     throw new Error("Invalid credentials");
+                // });
     }
     
     logout(): Promise<string>{
