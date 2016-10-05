@@ -9,13 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var angular2_jwt_1 = require('angular2-jwt');
 var DashboardComponent = (function () {
     function DashboardComponent() {
     }
     DashboardComponent = __decorate([
         core_1.Component({
             templateUrl: '/views/dashboard.html'
-        }), 
+        }),
+        CanActivate(function () { return angular2_jwt_1.tokenNotExpired(); }), 
         __metadata('design:paramtypes', [])
     ], DashboardComponent);
     return DashboardComponent;

@@ -15,7 +15,7 @@ declare var componentHandler: any;
 @Component({
     selector: 'app',
     templateUrl: '/views/app.html',
-    providers: [ NotificationService ]
+    providers: [ NotificationService, AuthenticationService ]
 })
 export class AppComponent implements AfterViewInit, OnInit {
 
@@ -40,8 +40,6 @@ export class AppComponent implements AfterViewInit, OnInit {
     onLogout(){
         this.authService.logout().then(res => {
             window.location.assign('/');
-            //this.router.navigate(['/home']);
-            //this.notificationService.sendNotification(new NotificationMessage("logout", "", null));
         }).catch(err => {
             this.logger.logError(err);
         });

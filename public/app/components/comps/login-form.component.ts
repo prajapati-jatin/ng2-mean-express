@@ -35,7 +35,7 @@ export class LoginComponent implements AfterViewInit, OnInit{
             this.submitted = true;
             this.userService.authenticate(this.model.username, this.model.password).then((response) => {
                 console.log('In auth success');
-                window.token = response;                
+                window.token = response;
                 this.isauthenticated = true;
                 this.notificationService.sendNotification(new NotificationMessage("authenticated", "", null));
                 this.router.navigate(['/home']);

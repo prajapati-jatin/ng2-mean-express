@@ -39,8 +39,6 @@ var AppComponent = (function () {
         var _this = this;
         this.authService.logout().then(function (res) {
             window.location.assign('/');
-            //this.router.navigate(['/home']);
-            //this.notificationService.sendNotification(new NotificationMessage("logout", "", null));
         }).catch(function (err) {
             _this.logger.logError(err);
         });
@@ -85,7 +83,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'app',
             templateUrl: '/views/app.html',
-            providers: [notification_service_1.NotificationService]
+            providers: [notification_service_1.NotificationService, authentication_service_1.AuthenticationService]
         }), 
         __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, logger_service_1.Logger, router_1.Router, notification_service_1.NotificationService])
     ], AppComponent);
