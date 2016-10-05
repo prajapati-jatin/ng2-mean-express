@@ -7,6 +7,10 @@ import { Logger } from '../services/logger.service';
 @Injectable()
 export class AuthenticationService{
 
+    public IsLoggedIn: boolean = false;
+
+    public RedirectURL: string;
+
     constructor(private userService: UserService, private logger: Logger,
                 private http: Http){
 
@@ -14,6 +18,7 @@ export class AuthenticationService{
 
     login(username: string, password: string): Promise<string>{
         return this.userService.authenticate(username, password).then(resp => {
+            window.IsLoggedIn = true;
             return resp;
         }).catch(err => {
             return err;
@@ -22,6 +27,7 @@ export class AuthenticationService{
 
     logout(): Promise<string>{
         return this.userService.logout().then(resp => {
+            window.IsLoggedIn = false;
             return resp;
         }).catch(err => {
             return err;

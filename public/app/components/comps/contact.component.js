@@ -9,16 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var DashboardComponent = (function () {
-    function DashboardComponent() {
+var ContactComponent = (function () {
+    function ContactComponent() {
     }
-    DashboardComponent = __decorate([
+    ContactComponent = __decorate([
         core_1.Component({
-            templateUrl: '/views/dashboard.html'
+            templateUrl: '/views/contact.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], DashboardComponent);
-    return DashboardComponent;
+    ], ContactComponent);
+    return ContactComponent;
 }());
-exports.DashboardComponent = DashboardComponent;
-//# sourceMappingURL=dashboard.component.js.map
+exports.ContactComponent = ContactComponent;
+//# sourceMappingURL=contact.component.js.map

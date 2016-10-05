@@ -16,7 +16,8 @@ var home_component_1 = require('../comps/home.component');
 var login_form_component_1 = require('../comps/login-form.component');
 var http_1 = require('@angular/http');
 var logout_component_1 = require('../comps/logout.component');
-var dashboard_component_1 = require('../comps/dashboard.component');
+var about_component_1 = require('../comps/about.component');
+var contact_component_1 = require('../comps/contact.component');
 var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
 var app_routing_1 = require('./app.routing');
@@ -25,9 +26,10 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_routing_1.routing, http_1.HttpModule, http_1.JsonpModule],
-            declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, login_form_component_1.LoginComponent, logout_component_1.LogoutComponent, dashboard_component_1.DashboardComponent],
-            providers: [user_service_1.UserService, logger_service_1.Logger],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, http_1.JsonpModule, app_routing_1.routing],
+            declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, login_form_component_1.LoginComponent, logout_component_1.LogoutComponent,
+                about_component_1.AboutComponent, contact_component_1.ContactComponent],
+            providers: [user_service_1.UserService, logger_service_1.Logger, app_routing_1.appRoutingProviders],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

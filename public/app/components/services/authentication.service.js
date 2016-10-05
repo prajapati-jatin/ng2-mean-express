@@ -17,9 +17,11 @@ var AuthenticationService = (function () {
         this.userService = userService;
         this.logger = logger;
         this.http = http;
+        this.IsLoggedIn = false;
     }
     AuthenticationService.prototype.login = function (username, password) {
         return this.userService.authenticate(username, password).then(function (resp) {
+            window.IsLoggedIn = true;
             return resp;
         }).catch(function (err) {
             return err;
@@ -27,6 +29,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService.prototype.logout = function () {
         return this.userService.logout().then(function (resp) {
+            window.IsLoggedIn = false;
             return resp;
         }).catch(function (err) {
             return err;

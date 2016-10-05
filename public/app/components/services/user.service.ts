@@ -8,7 +8,7 @@ export class UserService{
     
     constructor(private logger: Logger, private http: Http) { };
     
-    authenticate(username, password): Promise<string> {        
+    authenticate(username:string, password:string): Promise<string> {        
         let authUrl = '/api/users/authenticate';
         let body = JSON.stringify({username: username, password: password});
         return this.http.post(authUrl, body, this.getRequestOptions())

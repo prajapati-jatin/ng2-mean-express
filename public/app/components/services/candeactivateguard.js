@@ -9,16 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var DashboardComponent = (function () {
-    function DashboardComponent() {
+var CanDeactivateGuard = (function () {
+    function CanDeactivateGuard() {
     }
-    DashboardComponent = __decorate([
-        core_1.Component({
-            templateUrl: '/views/dashboard.html'
-        }), 
+    CanDeactivateGuard.prototype.canDeactivate = function (component) {
+        return component.canDeactivate ? component.canDeactivate() : true;
+    };
+    CanDeactivateGuard = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], DashboardComponent);
-    return DashboardComponent;
+    ], CanDeactivateGuard);
+    return CanDeactivateGuard;
 }());
-exports.DashboardComponent = DashboardComponent;
-//# sourceMappingURL=dashboard.component.js.map
+exports.CanDeactivateGuard = CanDeactivateGuard;
+//# sourceMappingURL=candeactivateguard.js.map

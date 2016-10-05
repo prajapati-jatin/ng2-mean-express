@@ -5,6 +5,7 @@ import { AfterViewInit, OnInit } from '@angular/core';
 import { AppComponent } from '../global/app.component';
 import { Login } from '../models/login';
 import { UserService } from '../services/user.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { Logger } from '../services/logger.service';
 import { NotificationService, NotificationMessage } from '../services/notification.service';
 
@@ -19,7 +20,8 @@ export class LoginComponent implements AfterViewInit, OnInit{
     
     constructor(private userService: UserService, private logger: Logger, 
                 private route: ActivatedRoute, private router: Router,
-                private notificationService: NotificationService) { 
+                private notificationService: NotificationService,
+                public authService: AuthenticationService) { 
 
                 }
     
@@ -33,17 +35,32 @@ export class LoginComponent implements AfterViewInit, OnInit{
     onSubmit() {
         try{
             this.submitted = true;
-            this.userService.authenticate(this.model.username, this.model.password).then((response) => {
-                console.log('In auth success');
-                window.token = response;
-                this.isauthenticated = true;
-                this.notificationService.sendNotification(new NotificationMessage("authenticated", "", null));
-                this.router.navigate(['/home']);
-            }).catch((error) => {
-                let errorMessage = error.text();
+            this.authService.login(this.model.username, this.model.password).then(resp => {
+                console.log(resp.token);
+                window.token = resp;
+                window.IsLoggedIn = true;
+                this.logger.log(this.authService.RedirectURL);
+                if(window.RedirectURL !== '' && window.RedirectURL !== undefined){
+                    this.router.navigate([window.RedirectURL]);
+                }
+                else{
+                    this.router.navigate(['/home']);    
+                }
+            }).catch(err => {
+                let errorMessage = err.text();
                 this.logger.showNotification(errorMessage, 'error');
-                this.logger.log(error.text());
             });
+            // this.userService.authenticate(this.model.username, this.model.password).then((response) => {
+            //     console.log('In auth success');
+            //     window.token = response;
+            //     this.isauthenticated = true;
+            //     this.notificationService.sendNotification(new NotificationMessage("authenticated", "", null));
+            //     this.router.navigate(['/home']);
+            // }).catch((error) => {
+            //     let errorMessage = error.text();
+            //     this.logger.showNotification(errorMessage, 'error');
+            //     this.logger.log(error.text());
+            // });
         }
         catch(ex){
             console.error(ex);
@@ -65,17 +82,17 @@ export class LoginComponent implements AfterViewInit, OnInit{
     }
     
     ngOnInit(){
-        try{
-            this.userService.getToken().then((response) => {
-                if(response !== "undefined" && response !== ''){
-                    this.router.navigate(['/home']);
-                }
-            }).catch((error) => {
-                this.logger.logError('Not authenticated');
-            });
-        }
-        catch(ex){
-            this.logger.logError(ex);
-        }
+        // try{
+        //     this.userService.getToken().then((response) => {
+        //         if(response !== "undefined" && response !== ''){
+        //             this.router.navigate(['/home']);
+        //         }
+        //     }).catch((error) => {
+        //         this.logger.logError('Not authenticated');
+        //     });
+        // }
+        // catch(ex){
+        //     this.logger.logError(ex);
+        // }
     }
 }

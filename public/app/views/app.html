@@ -10,15 +10,15 @@
             <div class="app-navigation-container">
                 <nav class="app-navigation mdl-navigation">
                   <a class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/home">Home</a>
-                  <a class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/admin/dashboard">Dashboard</a>
+                  <a class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/admin">Dashboard</a>
                 </nav>
             </div>
             <button class="app-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
             <i class="material-icons">more_vert</i>
             </button>
             <nav class="app-menu mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <a class="mdl-menu__item">About</a>
-                <a class="mdl-menu__item">Contact</a>
+                <a class="mdl-menu__item" routerLink="/about">About</a>
+                <a class="mdl-menu__item" routerLink="/contact">Contact</a>
                 <a *ngIf="!authenticated" class="mdl-menu__item" routerLink="/login">Login</a>
                 <a *ngIf="authenticated" class="mdl-menu__item" href="#" (click)="onLogout()">Logout</a>
             </nav>
